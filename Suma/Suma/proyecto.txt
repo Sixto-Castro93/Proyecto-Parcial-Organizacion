@@ -1,0 +1,50 @@
+.data
+
+var:.asciiz "\nBienvenidos"
+var2:.asciiz "\ningrese un numero"
+var3:.asciiz "\npresiono salto :("
+str1: .space 50
+.space 100
+
+.text
+
+_start: la $4, var
+
+li $2, 4
+
+syscall
+la $4, var2
+
+li $2, 4
+
+syscall
+
+j ingrenum
+ingrenum: 
+li $2,8
+# $a0 = buffer para guardar la cadena
+la $a0,str1
+# $a1 = tamaño a leer
+ori $a1,$zero,50
+syscall
+add $t0, $0,$a0
+add $t2, $a1,$a0
+comprueba:
+lb $t1,($t0)
+beq $t1, 10, error
+la $4, ($t1)
+li $2, 1
+syscall
+addi $t0, $t0,1
+lb $t1,($t0)
+beq $t1, 10, ingrenum
+j comprueba
+error:
+la $4, var3
+
+li $2, 4
+
+syscall
+
+li $2, 10
+syscall
