@@ -1,15 +1,14 @@
 .data
-saludo:.asciiz "Bienvenidos \ningrese los numeros a sumar \n"
-var2:.asciiz "para acabar la suma presione enter \n"
-resultado:.asciiz "el resultado de la suma es : "
-errornum:.asciiz "El dato que ingreso no es un entero,\n porfavor intentelo de nuevo :\n"
+var2:.asciiz "Bienvenidos a la suma de números enteros\nIngrese los números a sumar \nPara acabar la suma presione Enter \n"
+resultado:.asciiz "El resultado de la suma es : "
+errornum:.asciiz "El dato que ingresó no es un entero,\n Por favor, inténtelo de nuevo :\n"
 str1: .space 50
 .space 100
+
 .text
 
-_start: la $4, saludo
-li $2, 4
-syscall
+.globl main1
+main1: 
 la $4, var2
 li $2, 4
 syscall
@@ -51,8 +50,9 @@ syscall
 la $4, ($s0)
 li $2, 1
 syscall
-li $2, 10
-syscall
+jal elegirOpcion
+#li $2, 10
+#syscall
 
 error2:
 la $4, errornum
